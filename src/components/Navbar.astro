@@ -1,0 +1,72 @@
+---
+// src/components/Navbar.astro
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-canvas-parchment/80 backdrop-blur-[20px] border-b border-black/5 transition-all duration-300">
+  <div class="max-w-[1024px] mx-auto px-4 h-14 flex items-center justify-between text-sm md:text-xs font-medium tracking-tight">
+    <!-- Brand Logo -->
+    <a href="/" class="text-ink hover:text-ink/70 transition-colors py-2">
+      <span class="font-semibold tracking-tight text-base md:text-sm">The Glasshouse</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#space" class="text-ink/80 hover:text-ink transition-colors py-2">Space</a>
+      <a href="#rooms" class="text-ink/80 hover:text-ink transition-colors py-2">Rooms</a>
+      <a href="#events" class="text-ink/80 hover:text-ink transition-colors py-2">Events</a>
+      <a href="#packages" class="text-ink/80 hover:text-ink transition-colors py-2">Packages</a>
+      <a href="#gallery" class="text-ink/80 hover:text-ink transition-colors py-2">Gallery</a>
+    </nav>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-4">
+      <a href="#site-visit" class="hidden md:inline-block bg-action-blue text-white px-4 py-1.5 rounded-full hover:scale-95 transition-transform duration-200">
+        Schedule Visit
+      </a>
+      
+      <!-- Mobile Menu Toggle -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 -mr-2 text-ink" aria-label="Toggle Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 top-14 bg-canvas-parchment/95 backdrop-blur-xl h-screen hidden flex-col px-6 py-8 gap-6 text-xl font-semibold border-t border-black/5">
+    <a href="#space" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">The Space</a>
+    <a href="#rooms" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">Venue Rooms</a>
+    <a href="#events" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">Event Types</a>
+    <a href="#packages" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">Packages</a>
+    <a href="#gallery" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">Gallery</a>
+    <a href="#location" class="mobile-link text-ink hover:text-action-blue border-b border-black/5 pb-4">Location</a>
+    
+    <a href="#site-visit" class="mobile-link mt-4 bg-action-blue text-white px-6 py-4 rounded-full text-center hover:scale-95 transition-transform">
+      Schedule Site Visit
+    </a>
+  </div>
+</header>
+
+<script>
+  // Simple vanilla JS for mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const links = document.querySelectorAll('.mobile-link');
+
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
+    document.body.classList.toggle('overflow-hidden'); // prevent bg scroll
+  });
+
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      menu?.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    });
+  });
+</script>

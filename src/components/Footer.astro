@@ -1,0 +1,55 @@
+---
+// src/components/Footer.astro
+---
+
+<footer class="bg-canvas-white text-ink py-12 md:py-16 px-6 border-t border-black/5 text-sm md:text-base">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:gap-12">
+    
+    <!-- Brand Info -->
+    <div class="space-y-4 col-span-1 sm:col-span-2 lg:col-span-2">
+      <h3 class="text-lg md:text-xl font-semibold tracking-tight">The Glasshouse</h3>
+      <p class="text-ink/60 italic font-serif">"Light up your milestone."</p>
+      <p class="text-ink/60 mt-4 leading-relaxed">
+        Operating hours:<br/>
+        09:00-22:00 (booking)<br/>
+        24/7 (event)
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="space-y-4">
+      <h4 class="font-semibold text-ink/50 uppercase tracking-wide text-xs">Menu</h4>
+      <ul class="space-y-3 md:space-y-2">
+        <li><a href="#space" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Space</a></li>
+        <li><a href="#events" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Event Types</a></li>
+        <li><a href="#packages" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Packages</a></li>
+        <li><a href="#gallery" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Gallery</a></li>
+      </ul>
+    </div>
+
+    <!-- Social & Badges -->
+    <div class="space-y-4">
+      <h4 class="font-semibold text-ink/50 uppercase tracking-wide text-xs">Connect</h4>
+      <ul class="space-y-3 md:space-y-2">
+        <li><a href="#" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Instagram (@theglasshouse.id)</a></li>
+        <li><a href="#" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">Pinterest</a></li>
+        <li><a href="#" class="text-ink hover:text-action-blue transition-colors block py-1 md:py-0">TikTok</a></li>
+      </ul>
+      <div class="flex gap-2 pt-2 md:pt-4">
+        <!-- Placeholder Badges -->
+        <div class="w-10 h-10 bg-canvas-parchment rounded-md flex items-center justify-center text-xs text-ink/30 border border-black/5" title="Bridestory">B</div>
+        <div class="w-10 h-10 bg-canvas-parchment rounded-md flex items-center justify-center text-xs text-ink/30 border border-black/5" title="The Bride Dept">T</div>
+        <div class="w-10 h-10 bg-canvas-parchment rounded-md flex items-center justify-center text-xs text-ink/30 border border-black/5" title="Hipwee">H</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="max-w-[1200px] mx-auto mt-12 md:mt-16 pt-8 border-t border-black/5 text-ink/40 flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm">
+    <p class="text-center md:text-left">&copy; {new Date().getFullYear()} The Glasshouse Event Space. All rights reserved.</p>
+    <div class="flex gap-6">
+      <a href="#" class="hover:text-ink transition-colors py-2 md:py-0">Privacy Policy</a>
+      <a href="#" class="hover:text-ink transition-colors py-2 md:py-0">Terms of Service</a>
+    </div>
+  </div>
+</footer>
