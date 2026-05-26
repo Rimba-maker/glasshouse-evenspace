@@ -3,12 +3,48 @@ import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 
 const galleryImages = [
-  { id: 1, type: "wedding", src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop", span: "col-span-2 row-span-2 md:col-span-2 md:row-span-2" },
-  { id: 2, type: "corporate", src: "https://images.pexels.com/photos/1181311/pexels-photo-1181311.jpeg?auto=compress&cs=tinysrgb&w=800", span: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-  { id: 3, type: "wedding", src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop", span: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
-  { id: 4, type: "birthday", src: "https://images.unsplash.com/photo-1530103862676-de88bdf21a2c?q=80&w=800&auto=format&fit=crop", span: "col-span-1 row-span-2 md:col-span-1 md:row-span-2" },
-  { id: 5, type: "corporate", src: "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800", span: "col-span-2 row-span-1 md:col-span-2 md:row-span-1" },
-  { id: 6, type: "wedding", src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800&auto=format&fit=crop", span: "col-span-1 row-span-1 md:col-span-1 md:row-span-1" },
+  { 
+    id: 1, 
+    type: "wedding", 
+    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop", 
+    span: "md:col-span-2 md:row-span-2 col-span-2 row-span-2" 
+  },
+  { 
+    id: 2, 
+    type: "corporate", 
+    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop", 
+    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
+  },
+  { 
+    id: 3, 
+    type: "wedding", 
+    src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop", 
+    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
+  },
+  { 
+    id: 4, 
+    type: "birthday", 
+    src: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800&auto=format&fit=crop", 
+    span: "md:col-span-1 md:row-span-2 col-span-1 row-span-2" 
+  },
+  { 
+    id: 5, 
+    type: "corporate", 
+    src: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?q=80&w=1200&auto=format&fit=crop", 
+    span: "md:col-span-2 md:row-span-1 col-span-2 row-span-1" 
+  },
+  { 
+    id: 6, 
+    type: "wedding", 
+    src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800&auto=format&fit=crop", 
+    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
+  },
+  { 
+    id: 7, 
+    type: "birthday", 
+    src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800&auto=format&fit=crop", 
+    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
+  },
 ];
 
 const filters = ["All", "Wedding", "Corporate", "Birthday"];
@@ -44,7 +80,7 @@ export default function Gallery() {
           </div>
         </div>
 
-        <motion.div layout className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[140px] md:auto-rows-[200px]">
+        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[140px] md:auto-rows-[200px]">
           <AnimatePresence>
             {filteredImages.map((img) => (
               <motion.div
