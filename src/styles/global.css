@@ -1,14 +1,3 @@
-/* Hallmark · shape: Poster-opening long page, kept section order · genre: editorial · theme: Hedgerow (deal 2/3, seed intimate-wedding-event-venue-3507·443e1c1e·2026-11-02·r0) · redesign: full
- * hero: Poster (photograph, hedge scrim, head lower left) · nav: bar, wordmark left, links, one pill · footer: mast wordmark over columns · imagery: Pexels stand-ins in data-slot frames · signature: the glass pavilion lit at dusk, with its floor plans drawn as line work · hedgerow: hedge
- * axes: dark/high-contrast-serif/chromatic-green · posture: drenched · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H4 E3 S4 R4 V3 · weakest: V, the gallery grid stays a plain masonry so the photographs carry it */
-/* Hallmark · waive 80 · a labelled diagram: role=img with an aria-label and tabs that name each plan · the plans draw this page's own hall layouts and pax counts, the PRD's visual floor plan */
-/* Hallmark · waive 39b · index rows, not a control group: each row is a full-width line that swaps the event photograph · the Events rows stand 112px by design */
-/* Hallmark · dismissed 59 · the PRD fixes thirteen sections and a redesign keeps every one; none is a stat strip or a logo wall */
-/* Hallmark · dismissed 28a · the first lazy image in each file sits far below the hero, so lazy loading is right there */
-/* Hallmark · dismissed 42 · the footer shape is a wordmark mast over four ruled columns, named in the stamp */
-/* Hallmark · dropped onClick={() => setCurrentIndex(i)}, onSubmit={(e) => e.preventDefault()} · the testimonial carousel is now static quotes (the theme keeps still, no auto-rotation); the visit form's inline handler became a named onSubmit that validates and still posts nowhere */
-/* Hallmark · reworded "Konfigurasi disesuaikan dengan jenis acara — tim kami" to "…acara. Tim kami" · 19 names the dash; same for Location, Packages, Visit and The Space copy */
 @import "tailwindcss";
 @import "./tokens.css";
 @import "./base.css" layer(base);
