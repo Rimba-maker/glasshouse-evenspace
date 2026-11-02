@@ -1,54 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SiteVisit() {
-  return (
-    <section id="site-visit" className="py-20 md:py-[120px] bg-canvas-parchment text-ink px-4 md:px-6">
-      <div className="max-w-[800px] mx-auto bg-canvas-white rounded-[32px] md:rounded-[40px] p-6 sm:p-8 md:p-16 shadow-[var(--shadow-product)] border border-black/5 text-center">
-        <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter mb-3 md:mb-4">Lihat Langsung The Glasshouse</h2>
-        <p className="text-base md:text-lg text-ink/80 mb-8 md:mb-10">
-          Cara terbaik mengenal venue adalah dengan berkunjung. Tour 45-60 menit dengan tim kami — kapan tanggal yang cocok?
-        </p>
+	const [help, setHelp] = useState('');
 
-        <form className="space-y-4 md:space-y-6 text-left" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-            <div className="space-y-1.5 md:space-y-2">
-              <label className="text-xs md:text-sm font-medium text-ink/70">Nama</label>
-              <input type="text" className="w-full bg-canvas-parchment rounded-xl px-4 py-3 md:py-3.5 focus:outline-none focus:ring-2 focus:ring-focus-blue transition-shadow text-base min-h-[44px]" placeholder="Nama lengkap" />
-            </div>
-            <div className="space-y-1.5 md:space-y-2">
-              <label className="text-xs md:text-sm font-medium text-ink/70">WhatsApp</label>
-              <input type="tel" className="w-full bg-canvas-parchment rounded-xl px-4 py-3 md:py-3.5 focus:outline-none focus:ring-2 focus:ring-focus-blue transition-shadow text-base min-h-[44px]" placeholder="0812..." />
-            </div>
-          </div>
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const form = e.currentTarget;
+		const invalid = Array.from(form.elements).find((el) => el instanceof HTMLInputElement && !el.checkValidity()) as HTMLInputElement | undefined;
+		form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+		if (invalid) {
+			invalid.setAttribute('aria-invalid', 'true');
+			invalid.focus();
+			setHelp('Ada isian yang belum lengkap. Periksa kolom yang ditandai.');
+			return;
+		}
+		setHelp('Belum ada yang terkirim: formulir ini belum terhubung. Hubungi kami lewat WhatsApp untuk sementara.');
+	};
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-            <div className="space-y-1.5 md:space-y-2">
-              <label className="text-xs md:text-sm font-medium text-ink/70">Tipe Event</label>
-              <select className="w-full bg-canvas-parchment rounded-xl px-4 py-3 md:py-3.5 focus:outline-none focus:ring-2 focus:ring-focus-blue transition-shadow appearance-none text-base min-h-[44px]">
-                <option>Intimate Wedding</option>
-                <option>Corporate Gathering</option>
-                <option>Birthday / Milestone</option>
-                <option>Lainnya</option>
-              </select>
-            </div>
-            <div className="space-y-1.5 md:space-y-2">
-              <label className="text-xs md:text-sm font-medium text-ink/70">Estimasi Pax</label>
-              <input type="number" className="w-full bg-canvas-parchment rounded-xl px-4 py-3 md:py-3.5 focus:outline-none focus:ring-2 focus:ring-focus-blue transition-shadow text-base min-h-[44px]" placeholder="Contoh: 100" />
-            </div>
-          </div>
+	return (
+		<section id="site-visit" className="section">
+			<div className="container grid12">
+				<div className="span-5">
+					<h2>Lihat Langsung The Glasshouse</h2>
+					<p className="lead" style={{ marginTop: 'var(--space-lg)' }}>
+						Cara terbaik mengenal venue adalah dengan berkunjung. Tour 45-60 menit dengan tim kami. Kapan tanggal yang cocok?
+					</p>
+					<div style={{ marginTop: 'var(--space-2xl)', display: 'grid', gap: 'var(--space-md)', justifyItems: 'start' }}>
+						<p className="label">Atau hubungi kami langsung via WhatsApp untuk respons cepat.</p>
+						<a href="#" className="btn btn--secondary">WhatsApp Direct</a>
+					</div>
+				</div>
 
-          <button className="w-full bg-action-blue text-white py-3.5 md:py-4 rounded-full font-semibold text-base md:text-lg hover:scale-[0.98] transition-transform duration-200 mt-6 shadow-sm min-h-[48px]">
-            Schedule Site Visit
-          </button>
-        </form>
+				<div className="visit__well span-7">
+					<form onSubmit={onSubmit} noValidate data-endpoint="">
+						<div className="form-grid">
+							<div className="field">
+								<label htmlFor="sv-nama">Nama</label>
+								<input id="sv-nama" name="nama" type="text" autoComplete="name" required placeholder="Nama lengkap" />
+							</div>
+							<div className="field">
+								<label htmlFor="sv-wa">WhatsApp</label>
+								<input id="sv-wa" name="whatsapp" type="tel" autoComplete="tel" required placeholder="0812..." />
+							</div>
+							<div className="field">
+								<label htmlFor="sv-tipe">Tipe Event</label>
+								<select id="sv-tipe" name="tipe-event">
+									<option>Intimate Wedding</option>
+									<option>Corporate Gathering</option>
+									<option>Birthday / Milestone</option>
+									<option>Lainnya</option>
+								</select>
+							</div>
+							<div className="field">
+								<label htmlFor="sv-pax">Estimasi Pax</label>
+								<input id="sv-pax" name="pax" type="number" min="1" inputMode="numeric" placeholder="Contoh: 100" />
+							</div>
+							<div className="field">
+								<label htmlFor="sv-tanggal">Target Tanggal Event</label>
+								<input id="sv-tanggal" name="tanggal-event" type="date" />
+							</div>
+							<div className="field">
+								<label htmlFor="sv-slot">Preferred Site Visit Slot</label>
+								<input id="sv-slot" name="slot-visit" type="date" />
+							</div>
+						</div>
 
-        <div className="mt-8 pt-8 border-t border-black/5">
-          <p className="text-sm md:text-base text-ink/60 mb-4">Atau hubungi kami langsung via WhatsApp untuk respons cepat.</p>
-          <a href="#" className="inline-block bg-[#25D366] text-white px-6 md:px-8 py-3 rounded-full font-medium hover:scale-[0.98] transition-transform duration-200 shadow-sm min-h-[44px] w-full sm:w-auto">
-            WhatsApp Direct
-          </a>
-        </div>
-      </div>
-    </section>
-  );
+						<button type="submit" className="btn btn--primary btn--block" style={{ marginTop: 'var(--space-xl)' }}>
+							Schedule Site Visit
+						</button>
+						<p className="form-help" aria-live="polite">{help}</p>
+					</form>
+				</div>
+			</div>
+		</section>
+	);
 }

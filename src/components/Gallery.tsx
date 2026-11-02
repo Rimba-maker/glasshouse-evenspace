@@ -1,108 +1,105 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import clsx from 'clsx';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { photos, src } from '../shared/photos';
 
-const galleryImages = [
-  { 
-    id: 1, 
-    type: "wedding", 
-    src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop", 
-    span: "md:col-span-2 md:row-span-2 col-span-2 row-span-2" 
-  },
-  { 
-    id: 2, 
-    type: "corporate", 
-    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop", 
-    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
-  },
-  { 
-    id: 3, 
-    type: "wedding", 
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop", 
-    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
-  },
-  { 
-    id: 4, 
-    type: "birthday", 
-    src: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800&auto=format&fit=crop", 
-    span: "md:col-span-1 md:row-span-2 col-span-1 row-span-2" 
-  },
-  { 
-    id: 5, 
-    type: "corporate", 
-    src: "https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?q=80&w=1200&auto=format&fit=crop", 
-    span: "md:col-span-2 md:row-span-1 col-span-2 row-span-1" 
-  },
-  { 
-    id: 6, 
-    type: "wedding", 
-    src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800&auto=format&fit=crop", 
-    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
-  },
-  { 
-    id: 7, 
-    type: "birthday", 
-    src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800&auto=format&fit=crop", 
-    span: "md:col-span-1 md:row-span-1 col-span-1 row-span-1" 
-  },
+type Item = { id: number; type: 'wedding' | 'corporate' | 'birthday'; photo: { file: string; alt: string }; span: string };
+
+const galleryImages: Item[] = [
+	{ id: 1, type: 'wedding', photo: photos.gNightReception, span: 'w2 h2' },
+	{ id: 2, type: 'corporate', photo: photos.evCorporate, span: '' },
+	{ id: 3, type: 'wedding', photo: photos.gDance, span: 'h2' },
+	{ id: 4, type: 'birthday', photo: photos.gBirthday, span: 'w2' },
+	{ id: 5, type: 'wedding', photo: photos.gCourtyard, span: 'w2' },
+	{ id: 6, type: 'corporate', photo: photos.gCorpStage, span: '' },
+	{ id: 7, type: 'wedding', photo: photos.gCouple, span: 'h2' },
+	{ id: 8, type: 'birthday', photo: photos.evBirthday, span: '' },
+	{ id: 9, type: 'wedding', photo: photos.gLightsTable, span: '' },
+	{ id: 10, type: 'corporate', photo: photos.gCocktail, span: 'w2' },
+	{ id: 11, type: 'wedding', photo: photos.gCandle, span: 'w2' },
 ];
 
-const filters = ["All", "Wedding", "Corporate", "Birthday"];
+const filters = ['All', 'Wedding', 'Corporate', 'Birthday'];
 
 export default function Gallery() {
-  const [activeFilter, setActiveFilter] = useState("All");
+	const [activeFilter, setActiveFilter] = useState('All');
+	const [open, setOpen] = useState<number | null>(null);
+	const closeRef = useRef<HTMLButtonElement>(null);
+	const returnRef = useRef<HTMLElement | null>(null);
 
-  const filteredImages = galleryImages.filter(img => 
-    activeFilter === "All" ? true : img.type.toLowerCase() === activeFilter.toLowerCase()
-  );
+	const filteredImages = galleryImages.filter((img) => (activeFilter === 'All' ? true : img.type === activeFilter.toLowerCase()));
 
-  return (
-    <section id="gallery" className="py-20 md:py-[120px] bg-canvas-white px-6">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter mb-6 md:mb-8 text-ink">Past Celebrations</h2>
-          
-          <div className="flex flex-wrap justify-center gap-2">
-            {filters.map(filter => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={clsx(
-                  "px-4 md:px-5 py-2 md:py-2 rounded-full text-sm font-medium transition-colors duration-200 min-h-[44px]", // Mobile touch target
-                  activeFilter === filter 
-                    ? "bg-ink text-white" 
-                    : "bg-canvas-parchment text-ink/70 hover:bg-black/5"
-                )}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-        </div>
+	const step = useCallback(
+		(dir: 1 | -1) => setOpen((cur) => (cur === null ? cur : (cur + dir + filteredImages.length) % filteredImages.length)),
+		[filteredImages.length],
+	);
 
-        <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 auto-rows-[140px] md:auto-rows-[200px]">
-          <AnimatePresence>
-            {filteredImages.map((img) => (
-              <motion.div
-                layout
-                key={img.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className={clsx("relative overflow-hidden rounded-2xl group", img.span)}
-              >
-                <img 
-                  src={img.src} 
-                  alt="Gallery image" 
-                  className="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </div>
-    </section>
-  );
+	useEffect(() => {
+		if (open === null) return;
+		const onKey = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') setOpen(null);
+			if (e.key === 'ArrowRight') step(1);
+			if (e.key === 'ArrowLeft') step(-1);
+		};
+		document.addEventListener('keydown', onKey);
+		document.body.style.overflow = 'hidden';
+		closeRef.current?.focus();
+		return () => {
+			document.removeEventListener('keydown', onKey);
+			document.body.style.overflow = '';
+			returnRef.current?.focus();
+		};
+	}, [open, step]);
+
+	const current = open === null ? null : filteredImages[open];
+
+	return (
+		<section id="gallery" className="section">
+			<div className="container">
+				<div className="sec-head">
+					<h2>Past Celebrations</h2>
+					<div className="filters" role="group" aria-label="Filter galeri">
+						{filters.map((filter) => (
+							<button key={filter} type="button" className="chip" aria-pressed={activeFilter === filter} onClick={() => setActiveFilter(filter)}>
+								{filter}
+							</button>
+						))}
+					</div>
+				</div>
+
+				<div className="masonry">
+					{filteredImages.map((img, i) => (
+						<button
+							key={img.id}
+							type="button"
+							className={`masonry__item ${img.span}`}
+							aria-label={`Perbesar foto: ${img.photo.alt}`}
+							onClick={(e) => {
+								returnRef.current = e.currentTarget;
+								setOpen(i);
+							}}
+						>
+							<div data-slot={`gallery-${img.id}`} data-alt={img.photo.alt}>
+								<img src={src(img.photo.file)} alt="" loading="lazy" />
+							</div>
+						</button>
+					))}
+				</div>
+			</div>
+
+			{current && (
+				<div className="lightbox" role="dialog" aria-modal="true" aria-label="Foto galeri">
+					<div className="lightbox__stage">
+						<img src={src(current.photo.file)} alt={current.photo.alt} />
+					</div>
+					<div className="lightbox__bar">
+						<span className="label">{current.photo.alt}</span>
+						<div style={{ display: 'flex', gap: 'var(--space-xs)' }}>
+							<button type="button" className="btn" onClick={() => step(-1)} aria-label="Foto sebelumnya">Sebelumnya</button>
+							<button type="button" className="btn" onClick={() => step(1)} aria-label="Foto berikutnya">Berikutnya</button>
+							<button ref={closeRef} type="button" className="btn btn--primary" onClick={() => setOpen(null)}>Tutup</button>
+						</div>
+					</div>
+				</div>
+			)}
+		</section>
+	);
 }
