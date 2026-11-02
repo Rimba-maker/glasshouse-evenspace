@@ -6,20 +6,51 @@ interface Props {
 	description?: string;
 }
 
-const { title, description = "The Glasshouse Event Space - Intimate Wedding & Event Venue Jakarta" } = Astro.props;
+const {
+	title,
+	description = 'Venue glasshouse 350 m² di Jakarta Selatan untuk intimate wedding, corporate gathering, & milestone event. Kapasitas 30-150 pax. Site visit gratis.',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ogImage = new URL(`${base}/photos/hero.jpg`, Astro.site ?? 'http://localhost').href;
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@type': ['EventVenue', 'LocalBusiness'],
+	name: 'The Glasshouse Event Space',
+	description,
+	image: ogImage,
+	maximumAttendeeCapacity: 150,
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: 'Jl. Cilandak KKO No. 88',
+		addressLocality: 'Jakarta Selatan',
+		addressCountry: 'ID',
+	},
+};
 ---
 
 <!doctype html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:type" content="website" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<style is:global>html { overflow-x: clip; } body { overflow-x: clip; }</style>
+		<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 	</head>
-	<body class="bg-canvas-parchment text-ink min-h-screen flex flex-col">
+	<body>
+		<a class="skip" href="#main">Lewati ke konten</a>
 		<slot />
 	</body>
 </html>

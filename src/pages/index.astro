@@ -17,17 +17,17 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="The Glasshouse Event Space — Intimate Wedding & Event Venue Jakarta">
 	<Navbar />
-	<main class="w-full">
-		<Hero client:load />
+	<main id="main">
+		<Hero />
 		<TheSpace />
-		<VenueRooms client:visible />
+		<VenueRooms />
 		<EventTypes client:visible />
 		<CapacityLayout client:visible />
-		<Packages client:visible />
+		<Packages />
 		<Gallery client:visible />
 		<PreferredVendors client:visible />
 		<Location />
-		<Testimonial client:visible />
+		<Testimonial />
 		<SiteVisit client:idle />
 	</main>
 	<Footer />

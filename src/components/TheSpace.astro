@@ -1,24 +1,54 @@
 ---
 // src/components/TheSpace.astro
+import { photos, src } from '../shared/photos';
+
+const highlights = [
+	{ title: 'Natural Sunlight All Day', note: 'Dinding kaca dari lantai ke atap' },
+	{ title: 'Indoor Garden Concept', note: 'Pohon tumbuh menembus atap' },
+	{ title: 'Photo-Ready Every Corner', note: 'Fotogenik, tetap fungsional' },
+];
+const figures = [
+	{ value: '350 m²', label: 'Main Hall' },
+	{ value: '30-150', label: 'Kapasitas tamu' },
+	{ value: '2021', label: 'Tahun dibangun' },
+	{ value: '500+', label: 'Events hosted', accent: true },
+	{ value: '4.9', label: 'Rating' },
+	{ value: '7 hari', label: 'Available 7 days a week' },
+];
 ---
 
-<section id="space" class="py-20 md:py-[120px] bg-canvas-parchment text-center px-6">
-  <div class="max-w-[980px] mx-auto">
-    <h2 class="text-3xl md:text-5xl font-semibold tracking-tighter mb-6 md:mb-8 text-ink">Lebih Dari Sekadar Venue</h2>
-    <p class="text-base md:text-xl text-ink/80 max-w-3xl mx-auto mb-12 md:mb-16 leading-relaxed">
-      The Glasshouse adalah ruang dimana kaca, kayu, dan hijau bertemu — dibangun di tahun 2021 dengan visi sederhana: menciptakan tempat dimana cahaya alami menjadi dekorasi terbaik. Setiap sudut dirancang untuk fotogenik, namun tetap fungsional. Tidak ada plafon palsu, tidak ada karpet artificial — hanya pohon yang sengaja dibiarkan tumbuh menembus atap, lantai kayu Jati, dan dinding kaca yang memberi 360° view taman.
-    </p>
+<section id="space" class="section">
+	<div class="container">
+		<div class="grid12">
+			<div class="span-7">
+				<h2>Lebih Dari Sekadar Venue</h2>
+				<p class="lead" style="margin-top: var(--space-lg);">
+					The Glasshouse adalah ruang dimana kaca, kayu, dan hijau bertemu, dibangun di tahun 2021 dengan visi sederhana: menciptakan tempat dimana cahaya alami menjadi dekorasi terbaik. Setiap sudut dirancang untuk fotogenik, namun tetap fungsional. Tidak ada plafon palsu, tidak ada karpet artificial, hanya pohon yang sengaja dibiarkan tumbuh menembus atap, lantai kayu Jati, dan dinding kaca yang memberi 360° view taman.
+				</p>
+			</div>
+			<ul class="index space__rows span-5" style="align-self: end;">
+				{highlights.map((h) => (
+					<li>
+						<h3>{h.title}</h3>
+						<span class="label">{h.note}</span>
+					</li>
+				))}
+			</ul>
+		</div>
 
-    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4">
-      <div class="w-full sm:w-auto bg-canvas-white px-6 py-4 md:py-3 rounded-2xl md:rounded-full text-sm md:text-base font-medium shadow-sm border border-black/5 flex items-center justify-center gap-3">
-        <span class="text-xl">☀️</span> Natural Sunlight All Day
-      </div>
-      <div class="w-full sm:w-auto bg-canvas-white px-6 py-4 md:py-3 rounded-2xl md:rounded-full text-sm md:text-base font-medium shadow-sm border border-black/5 flex items-center justify-center gap-3">
-        <span class="text-xl">🌿</span> Indoor Garden Concept
-      </div>
-      <div class="w-full sm:w-auto bg-canvas-white px-6 py-4 md:py-3 rounded-2xl md:rounded-full text-sm md:text-base font-medium shadow-sm border border-black/5 flex items-center justify-center gap-3">
-        <span class="text-xl">📸</span> Photo-Ready Every Corner
-      </div>
-    </div>
-  </div>
+		<figure class="photo space__strip">
+			<div data-slot="space" data-alt={photos.space.alt}>
+				<img src={src(photos.space.file)} alt={photos.space.alt} loading="lazy" />
+			</div>
+		</figure>
+
+		<div class="figures">
+			{figures.map((f) => (
+				<div>
+					<span class:list={['figure', f.accent && 'figure--accent']}>{f.value}</span>
+					<span class="label">{f.label}</span>
+				</div>
+			))}
+		</div>
+	</div>
 </section>
